@@ -7,23 +7,21 @@ trait Update
     /**
      * Push plugin update
      *
-     * @param array $transient
+     * @param  mixed $transient
      * @return array
      */
     public function pushUpdate($transient)
     {
-
         if (empty($transient->checked)) {
             return $transient;
         }
 
-        //TODO: Vérifier changement
         if (!$remote = $this->getTransient()) {
             return $transient;
         }
 
         $remote = json_decode($remote['body']);
-        if ($remote and version_compare($this->currentVersion, $remote->version, '<') and version_compare($remote->requires, get_bloginfo('version'), '<')) {
+        if (!empty($remote) and version_compare($this->currentVersion, $remote->version, '<') and version_compare($remote->requires, get_bloginfo('version'), '<')) {
             $response = $this->createTransientResponse($remote);
             $transient->response[$response->plugin] = $response;
         }

@@ -1,4 +1,5 @@
 <?php
+
 namespace WpUpdater\Tests;
 
 use PHPUnit\Framework\TestCase;
@@ -6,19 +7,33 @@ use WpUpdater\Updater;
 
 final class WpUpdaterTest extends TestCase
 {
-    public function testNothing()
+    /**
+     * Test Wp Updater instanciation
+     *
+     * @return void
+     */
+    public function testInstanciation()
     {
-        $parameters = [];
+        $options = [
+            'url' => 'http://0.0.0.0:8080',
+            'transientName' => 'wp-updater-plugin',
+            'pluginSlug' => 'wp-plugin',
+            'currentVersion' => '1.0.0',
+            'parameters' => []
+        ];
 
         $wpUpdater = new Updater(
-            'http://0.0.0.0:8080',
-            'wp-updater-plugin',
-            'wp-plugin',
-            '1.0.0',
-            $parameters
+            $options['url'],
+            $options['transientName'],
+            $options['pluginSlug'],
+            $options['currentVersion'],
+            $options['parameters'],
         );
-        $wpUpdater->update();
 
-        $this->assertTrue(true);
+        $this->assertEquals($options['url'], $wpUpdater->getUrl());
+        $this->assertEquals($options['transientName'], $wpUpdater->getTransientName());
+        $this->assertEquals($options['pluginSlug'], $wpUpdater->getPluginSlug());
+        $this->assertEquals($options['currentVersion'], $wpUpdater->getCurrentVersion());
+        $this->assertEquals($options['parameters'], $wpUpdater->getParameters());
     }
 }

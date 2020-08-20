@@ -29,17 +29,4 @@ trait Request
 
         $this->uri = $this->url;
     }
-
-    /**
-     * Get last version information
-     *
-     * @return string
-     */
-    public function getLastVersionInformation()
-    {
-        return wp_remote_get($this->uri, [
-            'timeout' => 10,
-            'headers' => ['Accept' => 'application/json']
-        ]);
-    }
 }

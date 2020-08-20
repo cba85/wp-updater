@@ -17,7 +17,7 @@ trait Plugin
      */
     public function checkLastVersionInformation($result, $action, $args)
     {
-        if ($action != 'plugin_information' or $args->slug != $this->pluginSlug) {
+        if ($action != 'plugin_information' or empty($args->slug) or (isset($args->slug) and $args->slug != $this->pluginSlug)) {
             return false;
         }
 

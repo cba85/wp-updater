@@ -38,20 +38,19 @@ trait Transient
     /**
      * Get transient
      *
-     * @return null|string
+     * @return bool|string
      */
     public function getTransient()
     {
         delete_transient($this->transientName);
 
-        if (!$remote = get_transient($this->transientName)) {
+        if (!get_transient($this->transientName)) {
             $remote = $this->getLastVersionInformation();
 
             if (!is_wp_error($remote) and isset($remote['response']['code']) and $remote['response']['code'] == 200 and !empty($remote['body'])) {
                 set_transient($this->transientName, $remote, $this->expiration);
                 return $remote;
             }
-
         }
 
         return false;

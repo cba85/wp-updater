@@ -1,25 +1,25 @@
 {
-    "name": "cba85/wp-updater",
-    "description": "Update your plugin directly in Wordpress using your own system",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Clement Barbaza",
-            "email": "hi@clementbarbaza.com"
-        }
-    ],
-    "require-dev": {
-        "phpunit/phpunit": "^8.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "WpUpdater\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "WpUpdater\\Tests\\": "tests/"
-        }
+  "name": "cba85/wp-updater",
+  "description": "Update your plugin directly in Wordpress using your own system",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Clement Barbaza",
+      "email": "hi@clementbarbaza.com"
     }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "autoload": {
+    "psr-4": {
+      "WpUpdater\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "WpUpdater\\Tests\\": "tests/"
+    }
+  }
 }

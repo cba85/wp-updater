@@ -2,7 +2,9 @@
 
 namespace WpUpdater;
 
+use WpUpdater\Traits\Getters;
 use WpUpdater\Traits\Plugin;
+use WpUpdater\Traits\Remote;
 use WpUpdater\Traits\Request;
 use WpUpdater\Traits\Response;
 use WpUpdater\Traits\Transient;
@@ -13,7 +15,9 @@ use WpUpdater\Traits\Update;
  */
 class Updater
 {
+    use Getters;
     use Plugin;
+    use Remote;
     use Request;
     use Response;
     use Transient;
@@ -39,6 +43,13 @@ class Updater
      * @var string
      */
     protected $pluginSlug;
+
+    /**
+     * Plugin current version
+     *
+     * @var string
+     */
+    protected $currentVersion;
 
     /**
      * Updater parameters
@@ -68,8 +79,12 @@ class Updater
      */
     public function update()
     {
+        // https://developer.wordpress.org/reference/hooks/plugins_api/
+        // https://developer.wordpress.org/reference/functions/plugins_api/
         add_filter('plugins_api', [$this, 'checkLastVersionInformation'], 20, 3);
+
         add_filter('site_transient_update_plugins', [$this, 'pushUpdate']);
+
         add_action('upgrader_process_complete', [$this, 'afterUpdateComplete'], 10, 2);
     }
 }

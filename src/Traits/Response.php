@@ -2,6 +2,8 @@
 
 namespace WpUpdater\Traits;
 
+use stdClass;
+
 trait Response
 {
     /**
@@ -14,9 +16,9 @@ trait Response
     {
         $body = json_decode($remote['body']);
 
-        $response = new stdClass();
+        $response = new stdClass;
         $response->name = $body->name;
-        $response->slug = $this->slug;
+        $response->slug = $this->pluginSlug;
         $response->version = $body->version;
         $response->tested = $body->tested;
         $response->requires = $body->requires;
@@ -36,10 +38,12 @@ trait Response
             $response->sections['screenshots'] = $body->sections->screenshots;
         }
 
-        $response->banners = [
-            'low' => $body->banners->low,
-            'high' => $body->banners->high
-        ];
+        if (!empty($body->banners)) {
+            $response->banners = [
+                'low' => $body->banners->low,
+                'high' => $body->banners->high
+            ];
+        }
 
         return $response;
     }
@@ -52,13 +56,13 @@ trait Response
      */
     public function createTransientResponse($remote)
     {
-        $response = new stdClass();
-        $response->slug = $this->slug;
-        $response->plugin = 'woocommerce-mondialrelay/woocommerce-mondialrelay.php';
+        $response = new stdClass;
+        $response->slug = $this->pluginSlug;
+        $response->plugin = 'woocommerce-mondialrelay/woocommerce-mondialrelay.php'; //TODO: config
         $response->new_version = $remote->version;
         $response->tested = $remote->tested;
         $response->package = $remote->download_url;
-        $response->compatibility = new stdClass();
+        $response->compatibility = new stdClass;
         return $response;
     }
 }

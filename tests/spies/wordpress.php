@@ -21,7 +21,7 @@ if (!function_exists('get_transient')) {
     function get_transient(string $transient)
     {
         // Uncomment to check remote information
-        return false;
+        //return false;
 
         // Simulate a transient retrievement
         return [

@@ -2,10 +2,9 @@
 
 namespace WpUpdater\Tests;
 
-use PHPUnit\Framework\TestCase;
-use WpUpdater\Updater;
+use WpUpdater\Tests\WpUpdaterTestCase;
 
-final class ResponseTest extends TestCase
+final class ResponseTest extends WpUpdaterTestCase
 {
     /**
      * Create request uri without any parameters
@@ -14,16 +13,8 @@ final class ResponseTest extends TestCase
      */
     public function testParseResponse()
     {
-        $wpUpdater = new Updater(
-            'http://0.0.0.0:8080',
-            'wp-updater-plugin',
-            'wp-plugin',
-            '1.0.0',
-            []
-        );
-
         $remote['body'] = file_get_contents(__DIR__ . '/data/remote.json');
-        $response = $wpUpdater->parseResponse($remote);
+        $response = $this->wpUpdater->parseResponse($remote);
 
         $this->assertIsObject($response);
         $this->assertObjectHasAttribute('name', $response);
@@ -41,5 +32,30 @@ final class ResponseTest extends TestCase
         $this->assertArrayHasKey('description', $response->sections);
         $this->assertArrayHasKey('installation', $response->sections);
         $this->assertArrayHasKey('changelog', $response->sections);
+    }
+
+    /**
+     * Create transient response
+     *
+     * @return void
+     */
+    public function testCreateTransientResponse()
+    {
+        $remote = json_decode(file_get_contents(__DIR__ . '/data/remote.json'));
+        $response = $this->wpUpdater->createTransientResponse($remote);
+
+        $this->assertIsObject($response);
+        $this->assertObjectHasAttribute('slug', $response);
+        $this->assertEquals('wp-plugin', $response->slug);
+        $this->assertObjectHasAttribute('plugin', $response);
+        $this->assertEquals('plugin/wp-plugin.php', $response->plugin);
+        $this->assertObjectHasAttribute('new_version', $response);
+        $this->assertEquals('1.1.0', $response->new_version);
+        $this->assertObjectHasAttribute('tested', $response);
+        $this->assertEquals('4.8.1', $response->tested);
+        $this->assertObjectHasAttribute('package', $response);
+        $this->assertEquals('https://rudrastyh.com/wp-content/uploads/misha-test-updater.zip', $response->package);
+        $this->assertObjectHasAttribute('compatibility', $response);
+        $this->assertIsObject($response->compatibility);
     }
 }

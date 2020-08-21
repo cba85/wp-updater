@@ -2,10 +2,9 @@
 
 namespace WpUpdater\Tests;
 
-use PHPUnit\Framework\TestCase;
-use WpUpdater\Updater;
+use WpUpdater\Tests\WpUpdaterTestCase;
 
-final class TransientTest extends TestCase
+final class TransientTest extends WpUpdaterTestCase
 {
     /**
      * Test get transient
@@ -14,15 +13,7 @@ final class TransientTest extends TestCase
      */
     public function testGetTransient()
     {
-        $wpUpdater = new Updater(
-            'http://0.0.0.0:8080',
-            'wp-updater-plugin',
-            'wp-plugin',
-            '1.0.0',
-            []
-        );
-
-        $transient = $wpUpdater->getTransient('wp-updater-plugin');
+        $transient = $this->wpUpdater->getTransient('wp-updater-plugin');
 
         // Get transient
         //$this->assertFalse($transient);

@@ -34,12 +34,14 @@ trait Update
      *
      * @param object $upgraderObject
      * @param array $options
-     * @return void
+     * @return bool
      */
     public function afterUpdateComplete($upgraderObject, $options)
     {
-        if ($options['action'] == 'update' and $options['type'] == 'plugin') {
+        if (isset($options['action']) and $options['action'] == 'update' and isset($options['type']) and $options['type'] == 'plugin') {
             delete_transient($this->transientName);
+            return true;
         }
+        return false;
     }
 }

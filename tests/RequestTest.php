@@ -21,6 +21,7 @@ final class RequestTest extends TestCase
             'wp-updater-plugin',
             'wp-plugin',
             '1.0.0',
+            'plugin/wp-plugin.php',
             []
         );
 
@@ -44,6 +45,7 @@ final class RequestTest extends TestCase
             'wp-updater-plugin',
             'wp-plugin',
             '1.0.0',
+            'plugin/wp-plugin.php',
             $parameters
         );
 

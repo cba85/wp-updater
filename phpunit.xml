@@ -13,7 +13,7 @@
          verbose="true"
     >
     <testsuites>
-        <testsuite name="Icarus Test Suite">
+        <testsuite name="WP Updater Test Suite">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>

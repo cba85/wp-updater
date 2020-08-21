@@ -2,10 +2,9 @@
 
 namespace WpUpdater\Tests;
 
-use PHPUnit\Framework\TestCase;
-use WpUpdater\Updater;
+use WpUpdater\Tests\WpUpdaterTestCase;
 
-final class WpUpdaterTest extends TestCase
+final class WpUpdaterTest extends WpUpdaterTestCase
 {
     /**
      * Test Wp Updater instanciation
@@ -19,21 +18,14 @@ final class WpUpdaterTest extends TestCase
             'transientName' => 'wp-updater-plugin',
             'pluginSlug' => 'wp-plugin',
             'currentVersion' => '1.0.0',
+            'pluginFilePath' => 'plugin/wp-plugin.php',
             'parameters' => []
         ];
 
-        $wpUpdater = new Updater(
-            $options['url'],
-            $options['transientName'],
-            $options['pluginSlug'],
-            $options['currentVersion'],
-            $options['parameters'],
-        );
-
-        $this->assertEquals($options['url'], $wpUpdater->getUrl());
-        $this->assertEquals($options['transientName'], $wpUpdater->getTransientName());
-        $this->assertEquals($options['pluginSlug'], $wpUpdater->getPluginSlug());
-        $this->assertEquals($options['currentVersion'], $wpUpdater->getCurrentVersion());
-        $this->assertEquals($options['parameters'], $wpUpdater->getParameters());
+        $this->assertEquals($options['url'], $this->wpUpdater->getUrl());
+        $this->assertEquals($options['transientName'], $this->wpUpdater->getTransientName());
+        $this->assertEquals($options['pluginSlug'], $this->wpUpdater->getPluginSlug());
+        $this->assertEquals($options['currentVersion'], $this->wpUpdater->getCurrentVersion());
+        $this->assertEquals($options['parameters'], $this->wpUpdater->getParameters());
     }
 }

@@ -4,7 +4,6 @@
  * Wordpress spies
  */
 
-
 if (!function_exists('add_filter')) {
     function add_filter(string $tag, array $function_to_add, int $priority = 10, int $accepted_args = 1)
     {

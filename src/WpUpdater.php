@@ -2,7 +2,7 @@
 
 namespace WpUpdater;
 
-use WpUpdater\Traits\Getters;
+use WpUpdater\Traits\Getter;
 use WpUpdater\Traits\Plugin;
 use WpUpdater\Traits\Remote;
 use WpUpdater\Traits\Request;
@@ -15,7 +15,7 @@ use WpUpdater\Traits\Update;
  */
 class Updater
 {
-    use Getters;
+    use Getter;
     use Plugin;
     use Remote;
     use Request;
@@ -59,15 +59,23 @@ class Updater
     protected $parameters = [];
 
     /**
+     * The file path of the plugin
+     *
+     * @var string
+     */
+    protected $pluginFilePath;
+
+    /**
      * Constructor
      */
-    public function __construct(string $url, string $transientName, string $pluginSlug, string $currentVersion, array $parameters = [])
+    public function __construct(string $url, string $transientName, string $pluginSlug, string $currentVersion, string $pluginFilePath, array $parameters = [])
     {
         $this->url = $url;
         $this->transientName = $transientName;
         $this->pluginSlug = $pluginSlug;
         $this->parameters = $parameters;
         $this->currentVersion = $currentVersion;
+        $this->pluginFilePath = $pluginFilePath;
         $this->createRequestUri();
         return $this;
     }
@@ -85,6 +93,8 @@ class Updater
 
         add_filter('site_transient_update_plugins', [$this, 'pushUpdate']);
 
+        // https://developer.wordpress.org/reference/hooks/upgrader_process_complete/
+        // https://codex.wordpress.org/Plugin_API/Action_Reference/upgrader_process_complete
         add_action('upgrader_process_complete', [$this, 'afterUpdateComplete'], 10, 2);
     }
 }

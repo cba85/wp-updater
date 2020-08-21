@@ -58,7 +58,7 @@ trait Response
     {
         $response = new stdClass;
         $response->slug = $this->pluginSlug;
-        $response->plugin = 'woocommerce-mondialrelay/woocommerce-mondialrelay.php'; //TODO: config
+        $response->plugin = $this->pluginFilePath;
         $response->new_version = $remote->version;
         $response->tested = $remote->tested;
         $response->package = $remote->download_url;

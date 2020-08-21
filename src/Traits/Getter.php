@@ -3,9 +3,9 @@
 namespace WpUpdater\Traits;
 
 /**
- * Getters trait
+ * Getter trait
  */
-trait Getters
+trait Getter
 {
     /**
      * Get url
@@ -65,5 +65,15 @@ trait Getters
     public function getUri()
     {
         return $this->uri;
+    }
+
+    /**
+     * Get plugin file path
+     *
+     * @return string
+     */
+    public function getPluginFilePath()
+    {
+        return $this->pluginFilePath;
     }
 }

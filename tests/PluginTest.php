@@ -2,10 +2,9 @@
 
 namespace WpUpdater\Tests;
 
-use PHPUnit\Framework\TestCase;
-use WpUpdater\Updater;
+use WpUpdater\Tests\WpUpdaterTestCase;
 
-final class PluginTest extends TestCase
+final class PluginTest extends WpUpdaterTestCase
 {
     /**
      * Check last version information using wrong action
@@ -14,16 +13,7 @@ final class PluginTest extends TestCase
      */
     public function testCheckLastVersionInformationUsingWrongAction()
     {
-        $wpUpdater = new Updater(
-            'http://0.0.0.0:8080',
-            'wp-updater-plugin',
-            'wp-plugin',
-            '1.0.0',
-            []
-        );
-
-        $version = $wpUpdater->checkLastVersionInformation(null, 'error', []);
-
+        $version = $this->wpUpdater->checkLastVersionInformation(null, 'error', []);
         $this->assertFalse($version);
     }
 
@@ -34,16 +24,7 @@ final class PluginTest extends TestCase
      */
     public function testCheckLastVersionInformationUsingWrongArgs()
     {
-        $wpUpdater = new Updater(
-            'http://0.0.0.0:8080',
-            'wp-updater-plugin',
-            'wp-plugin',
-            '1.0.0',
-            []
-        );
-
-        $version = $wpUpdater->checkLastVersionInformation(null, 'plugin_information', []);
-
+        $version = $this->wpUpdater->checkLastVersionInformation(null, 'plugin_information', []);
         $this->assertFalse($version);
     }
 
@@ -54,16 +35,7 @@ final class PluginTest extends TestCase
      */
     public function testCheckLastVersionInformationUsingIncorrectSlug()
     {
-        $wpUpdater = new Updater(
-            'http://0.0.0.0:8080',
-            'wp-updater-plugin',
-            'wp-plugin',
-            '1.0.0',
-            []
-        );
-
-        $version = $wpUpdater->checkLastVersionInformation(null, 'plugin_information', ['slug' => 'error']);
-
+        $version = $this->wpUpdater->checkLastVersionInformation(null, 'plugin_information', ['slug' => 'error']);
         $this->assertFalse($version);
     }
 
@@ -74,16 +46,7 @@ final class PluginTest extends TestCase
      */
     public function testCheckLastVersionInformationUsingCorrectSlug()
     {
-        $wpUpdater = new Updater(
-            'http://0.0.0.0:8080',
-            'wp-updater-plugin',
-            'wp-plugin',
-            '1.0.0',
-            []
-        );
-
-        $version = $wpUpdater->checkLastVersionInformation(null, 'plugin_information', ['slug' => 'wp-plugin']);
-
+        $version = $this->wpUpdater->checkLastVersionInformation(null, 'plugin_information', ['slug' => 'wp-plugin']);
         $this->assertFalse($version);
     }
 }

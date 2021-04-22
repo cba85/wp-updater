@@ -29,8 +29,6 @@ final class UpdateTest extends WpUpdaterTestCase
         $transient->checked = true;
         $update = $this->wpUpdater->pushUpdate($transient);
 
-        print_r($update);
-
         $this->assertIsObject($update);
         $this->assertObjectHasAttribute('checked', $update);
         $this->assertEquals(1, $update->checked);
